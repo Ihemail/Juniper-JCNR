@@ -25,7 +25,8 @@ Note: Single/Multiple Shell Scripts are customized to run in RHEL console(prefer
   ```
 
 4. If you need to change the server hostname then modofy the '/etc/hostname' file and reboot the server via conosle:
-   \nlogin: root/contrail123
+   
+   login: root/contrail123
 
   ```ruby
   [root@rhel84 ~]# cat /etc/hostname
