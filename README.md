@@ -25,7 +25,7 @@ Note: Single/Multiple Shell Scripts are customized to run in RHEL console(prefer
   ```
 
 4. If you need to change the server hostname then modofy the '/etc/hostname' file and reboot the server via conosle:
-   login: root/contrail123
+   \nlogin: root/contrail123
 
   ```ruby
   [root@rhel84 ~]# cat /etc/hostname
@@ -114,7 +114,6 @@ Note: Single/Multiple Shell Scripts are customized to run in RHEL console(prefer
   [root@rhel85 ~]#
   [root@rhel85 ~]#  
   ```
-
 
 8. Verify the JCNR(vRouter + cRPD) pods are running properly:
 
