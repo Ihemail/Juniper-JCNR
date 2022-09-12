@@ -2,33 +2,39 @@
 
 # Juniper JCNR(22.2-20) Deployment with Jdeployer K8s Infra and Minikube via_Shell
 
-Note: Single/Multiple Shell Scripts are customized to run from RHEL console(preferably) bash shell in VMM. 
+Note: Single/Multiple Shell Scripts are customized to run in RHEL console(preferably) bash shell in VMM. 
 
 1. Load single Node JCNR topology file in vmm pod and start the topology:
+
   ```ruby
   podxx-vmm:~ $ vmm config vmm-jcnr-1.cfg -g vmm-default
   podxx-vmm:~ $ vmm start
   ```
+
 2. All the necessary scripts and yaml files are avaiable in 'jcnr-pods-all.tgz' 
+
 3. Transfer 'jcnr-pods-all.tgz' to 'vm_rhel84_1' server node 
+
   ```ruby
-  [xxxx@q-pod13-vmm ~]$ mkdir homes
   podxx-vmm:~> vmm ip
   vm_rhel84_1 10.53.56.46
   vmx_1 10.53.32.99
   vmx_1_MPC0 10.53.46.12
   vm_openwrt_1 10.53.45.35
   podxx-vmm:~> scp jcnr-pods-all.tgz root@10.53.56.46:/root/
-
   ```
+
 4. If you need to change the server hostname then modofy the '/etc/hostname' file and reboot the server via conosle:
-  login: root/contrail123
+   login: root/contrail123
+
   ```ruby
   [root@rhel84 ~]# cat /etc/hostname
   rhel85
   [root@rhel84 ~]# reboot
   ```
-3. Login to 'vm_rhel84_1' via console/serial & Create a install script 'install.sh' at Root directory:
+
+5. Login to 'vm_rhel84_1' via console/serial & Create a install script 'install.sh' at Root directory:
+
   ```ruby
   [root@rhel85 ~]# vi start.sh
   #!/bin/bash
@@ -43,6 +49,7 @@ Note: Single/Multiple Shell Scripts are customized to run from RHEL console(pref
   
   [root@rhel85 ~]#
   ```
+
 4. Next start the install.sh script to start the K8s Infra and JCNR-22.2 deployment on the same RHEL server:
 
   ```ruby
