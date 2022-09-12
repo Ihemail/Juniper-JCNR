@@ -3,7 +3,7 @@
 Note: Single/Multiple Shell Scripts are customized to run in RHEL console(preferably) bash shell in VMM. 
 
 1. Load single Node JCNR topology file in vmm pod and start the topology:
-
+  
   ```ruby
   podxx-vmm:~ $ vmm config vmm-jcnr-1.cfg -g vmm-default
   podxx-vmm:~ $ vmm start
