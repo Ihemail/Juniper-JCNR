@@ -1,31 +1,69 @@
 # Juniper-JCNR - VMM - Multi node Deployment
 
-# Juniper JCNR(22.2-20) Deployment with Jdeployer K8S Infra and minikube via_Shell
+# Juniper JCNR(22.2-20) Deployment with Jdeployer K8s Infra and Minikube via_Shell
 
-Note: Single/Multiple Shell Scripts are customized to run from RHEL console(preferably) bash shell in VMM. 
+Note: Single/Multiple Shell Scripts are customized to run in RHEL console(preferably) bash shell in VMM. 
 
-1. Copy SSH Key to any Quincy Pod:
+1. Load Multi(x2) Node JCNR topology file in vmm pod and start the topology:
   ```ruby
-  MacOS:~ $ ssh-copy-id -i ~/.ssh/id_rsa.pub userid@q-pod13-vmm.englab.juniper.net
-  ```
-2. Login to any vmm Quincy Pod, and verify passwordless ssh login.
-3. Create a folder named 'homes' in your vmm Quincy Pod Home directory:
-  ```ruby
-  [xxxx@q-pod13-vmm ~]$ mkdir homes
-  ```
-4. Open test editor and modify the `vmm-conf.yaml` file with your own userid:
-
-  ```ruby
-  5    vars:
-  6      - vmm_ansible_conf_sh: "{{ lookup('file', 'scripts/vmm_ansible_conf.sh').splitlines() }}"
-  7      - vmm_commands_1_sh: "{{ lookup('file', 'scripts/vmm_commands_1.sh').splitlines() }}"
-  8      - vmm_list:
-  9          p1: userid@q-pod05-vmm.englab.juniper.net
- 10          p2: userid@q-pod08-vmm.englab.juniper.net
- 11          p3: userid@q-pod13-vmm.englab.juniper.net
+  podxx-vmm:~ $ vmm config vmm-jcnr-2.cfg -g vmm-default
+  podxx-vmm:~ $ vmm start
   ```
   
-5. Exit from VMM Pod and execute the ansible-playbook:
+2. All the necessary scripts and yaml files are avaiable in 'jcnr-pods-all.tgz' 
+
+3. Transfer 'jcnr-pods-all.tgz' to 'vm_rhel84_1' & 'vm_rhel84_2' servers and execute next steps per server 
+
+  ```ruby
+  podxx-vmm:~> vmm ip
+  vm_rhel84_1 10.53.56.46
+  vm_rhel84_2 10.53.56.47
+  vmx_1 10.53.32.99
+  vmx_1_MPC0 10.53.46.12
+  vm_openwrt_1 10.53.45.35
+  podxx-vmm:~> scp jcnr-pods-all.tgz root@10.53.56.46:/root/
+  podxx-vmm:~> scp jcnr-pods-all.tgz root@10.53.56.47:/root/
+  ```
+
+4. If you need to change the server hostname then modofy the '/etc/hostname' file and reboot the server via conosle:
+  login: root/contrail123
+
+  ```ruby
+  [root@rhel84 ~]# cat /etc/hostname
+  rhel85
+  [root@rhel84 ~]# reboot
+  ```
+
+5. Login to 'vm_rhel84_1' via console/serial & Create a install script 'install.sh' at Root directory:
+
+  ```ruby
+  [root@rhel85 ~]# vi install.sh
+  #!/bin/bash
+
+  tar -xvf jcnr-pods-all.tgz
+  mv jcnr-pods-all/k8s.io.sh ~/
+  mv jcnr-pods-all/mini-2.sh ~/
+  sh mini-2.sh
+  echo '\============  Minikube Install Complete :)  ============\'
+  sh k8s.io.sh
+  echo '\============  K8s Infra Install Complete :)  ============\'
+  
+  [root@rhel85 ~]#
+  ```
+
+4. Next start the install.sh script to start the K8s Infra and JCNR-22.2 deployment on the same RHEL server:
+
+  ```ruby
+  [root@rhel85 ~]# sh install.sh
+  jcnr-pods-all/
+  jcnr-pods-all/external_config.yaml
+  jcnr-pods-all/JCNR-22.2/
+  jcnr-pods-all/JCNR-22.2/helm_charts/
+  . . . .
+  ```
+  Note: Once you start the execution of 'install.sh' script it will continue for 30min-1hr with many jdeployer & ansible logs on the console. You can monitor those logs for any issues.
+  
+5. Successfull Installation ending will look like this:
   
   ```ruby
   MacOS:ansible xxxx$ ansible-playbook vmm-conf.yaml
@@ -35,7 +73,7 @@ Note: Single/Multiple Shell Scripts are customized to run from RHEL console(pref
   ```
 
 
-6. Similar login only Ansible Script for Server console & ssh to vQFX/vMX nodes:
+6. Verify the JCNR(vRouter + cRPD) pods are running properly:
 
   ```ruby
   MacOS:ansible xxxx$ ansible-playbook vmm-base.yaml
