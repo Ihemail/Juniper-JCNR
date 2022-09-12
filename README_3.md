@@ -1,4 +1,4 @@
-# Minikube - VMM - Single Node Deployment via_Shell
+# Minikube(KVM) - VMM - Single Node Deployment via_Shell
 
 Note: Single/Multiple Shell Scripts are customized to run in RHEL console(preferably) bash shell in VMM. 
 
