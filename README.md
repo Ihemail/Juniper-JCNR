@@ -1,6 +1,6 @@
-# Juniper-JCNR - VMM
+# Juniper-JCNR - VMM - Single node Deployment
 
-# Juniper JCNR(22.2-20) Deployment with Jdeployer K8S Infra and minikube via_Shell
+# Juniper JCNR(22.2-20) Deployment with Jdeployer K8s Infra and Minikube via_Shell
 
 Note: Single/Multiple Shell Scripts are customized to run from RHEL console(preferably) bash shell in VMM. 
 
