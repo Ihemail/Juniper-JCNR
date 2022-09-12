@@ -42,13 +42,15 @@ Note: Single/Multiple Shell Scripts are customized to run in RHEL console(prefer
   tar -xvf jcnr-pods-all.tgz
   mv jcnr-pods-all/k8s.io.sh ~/
   mv jcnr-pods-all/mini-2.sh ~/
+  sh mini-2.sh
+  echo '\============  Minikube Install Complete :)  ============\'
   sh k8s.io.sh
   echo '\============  K8s Infra Install Complete :)  ============\'
   
   [root@rhel85 ~]#
   ```
 
-4. Next start the install.sh script to start the K8s Infra and JCNR-22.2 deployment on the same RHEL server:
+6. Next start the install.sh script to start the K8s Infra and JCNR-22.2 deployment on the same RHEL server:
 
   ```ruby
   [root@rhel85 ~]# sh install.sh
@@ -60,7 +62,7 @@ Note: Single/Multiple Shell Scripts are customized to run in RHEL console(prefer
   ```
   Note: Once you start the execution of 'install.sh' script it will continue for 30min-1hr with many jdeployer & ansible logs on the console. You can monitor those logs for any issues. 
   
-5. Successfull Installation ending will look like this:
+7. Upon Successful Installation ending will look like this:
   
   ```ruby
   2022-09-12 11:53:35,646 p=19035 u=root n=ansible | TASK [execute on all remote hosts] *********************************************
@@ -114,7 +116,7 @@ Note: Single/Multiple Shell Scripts are customized to run in RHEL console(prefer
   ```
 
 
-6. Verify the JCNR(vRouter + cRPD) pods are running properly:
+8. Verify the JCNR(vRouter + cRPD) pods are running properly:
 
   ```ruby
   [root@rhel85 ~]# kubectl get pods -A
@@ -136,4 +138,4 @@ Note: Single/Multiple Shell Scripts are customized to run in RHEL console(prefer
   [root@rhel85 ~]#
   ```
   
-7. Close all Terminal app window once work is complete.
+9. Close all Terminal app window once work is complete.
