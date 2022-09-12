@@ -42,8 +42,6 @@ Note: Single/Multiple Shell Scripts are customized to run in RHEL console(prefer
   tar -xvf jcnr-pods-all.tgz
   mv jcnr-pods-all/k8s.io.sh ~/
   mv jcnr-pods-all/mini-2.sh ~/
-  sh mini-2.sh
-  echo '\============  Minikube Install Complete :)  ============\'
   sh k8s.io.sh
   echo '\============  K8s Infra Install Complete :)  ============\'
   
@@ -65,17 +63,63 @@ Note: Single/Multiple Shell Scripts are customized to run in RHEL console(prefer
 5. Successfull Installation ending will look like this:
   
   ```ruby
-  MacOS:ansible xxxx$ ansible-playbook vmm-conf.yaml
+  2022-09-10 15:12:28,259 p=10687 u=root n=ansible | TASK [create dummy file] *******************************************************
+  2022-09-10 15:12:29,317 p=10687 u=root n=ansible | changed: [10.49.123.202]
+  2022-09-10 15:12:29,350 p=10687 u=root n=ansible | PLAY RECAP *********************************************************************
+  2022-09-10 15:12:29,351 p=10687 u=root n=ansible | 10.49.123.202              : ok=26   changed=9    unreachable=0    failed=0    skipped=33   rescued=0    ignored=0
+  2022-09-10 15:12:29,351 p=10687 u=root n=ansible | 127.0.0.1                  : ok=16   changed=8    unreachable=0    failed=0    skipped=26   rescued=0    ignored=0
+  INFO     provisioner executed successfully....
+  Helm v3.9.4 is already latest
+  ***  installing helm operator ************************
+  . . .
   
-  PLAY RECAP *****************************************************************************************************
-  localhost                  : ok=15   changed=13   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+  NAME: jcnr
+  LAST DEPLOYED: Sat Sep 10 15:28:42 2022
+  NAMESPACE: default
+  STATUS: deployed
+  REVISION: 1
+  TEST SUITE: None
+  NAMESPACE         NAME                                     READY   STATUS              RESTARTS      AGE
+  contrail-deploy   contrail-k8s-deployer-7b5dd699b9-7x7j6   0/1     Init:0/1            0             10s
+  contrail          apply-contrail--1-8mknq                  1/1     Running             0             10s
+  kube-system       calico-node-7dsps                        1/1     Running             0             19m
+  kube-system       coredns-68ddd5bcc7-kx5zp                 1/1     Running             0             18m
+  kube-system       dns-autoscaler-6b7fcc87b9-gxfgn          1/1     Running             0             18m
+  kube-system       kube-apiserver-rhel84                    1/1     Running             1 (17m ago)   20m
+  kube-system       kube-controller-manager-rhel84           1/1     Running             2 (17m ago)   20m
+  kube-system       kube-crpd-worker-ds-vslth                0/1     Init:1/2            0             10s
+  kube-system       kube-multus-ds-amd64-r94vn               1/1     Running             0             18m
+  kube-system       kube-proxy-7bpkr                         1/1     Running             0             19m
+  kube-system       kube-scheduler-rhel84                    1/1     Running             2 (17m ago)   20m
+  kube-system       nodelocaldns-vxlcg                       1/1     Running             0             18m
+  kube-system       syslog-ng-54749b7b77-d6lfh               0/1     ContainerCreating   0             10s
+  \============  K8s Infra Install Complete :)  ============\
+  [root@rhel84 ~]#
+  [root@rhel84 ~]#  
   ```
 
 
 6. Verify the JCNR(vRouter + cRPD) pods are running properly:
 
   ```ruby
-  MacOS:ansible xxxx$ ansible-playbook vmm-base.yaml
+  [root@rhel84 ~]# kubectl get pods -A
+  NAMESPACE         NAME                                     READY   STATUS              RESTARTS      AGE
+  contrail-deploy   contrail-k8s-deployer-7b5dd699b9-7x7j6   0/1     Init:0/1            0             10s
+  contrail          apply-contrail--1-8mknq                  1/1     Running             0             10s
+  kube-system       calico-node-7dsps                        1/1     Running             0             19m
+  kube-system       coredns-68ddd5bcc7-kx5zp                 1/1     Running             0             18m
+  kube-system       dns-autoscaler-6b7fcc87b9-gxfgn          1/1     Running             0             18m
+  kube-system       kube-apiserver-rhel84                    1/1     Running             1 (17m ago)   20m
+  kube-system       kube-controller-manager-rhel84           1/1     Running             2 (17m ago)   20m
+  kube-system       kube-crpd-worker-ds-vslth                0/1     Init:1/2            0             10s
+  kube-system       kube-multus-ds-amd64-r94vn               1/1     Running             0             18m
+  kube-system       kube-proxy-7bpkr                         1/1     Running             0             19m
+  kube-system       kube-scheduler-rhel84                    1/1     Running             2 (17m ago)   20m
+  kube-system       nodelocaldns-vxlcg                       1/1     Running             0             18m
+  kube-system       syslog-ng-54749b7b77-d6lfh               0/1     ContainerCreating   0             10s
+  \============  K8s Infra Install Complete :)  ============\
+  [root@rhel84 ~]#
+  [root@rhel84 ~]#
   ```
   
 7. Close all Terminal app window once work is complete.
