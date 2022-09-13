@@ -87,7 +87,6 @@ Note: Single/Multiple Shell Scripts are customized to run in RHEL console(prefer
   
   2022-09-12 12:02:23 (18.7 MB/s) - ‘crds.yaml’ saved [17919/17919]
   . . .
-
   NAMESPACE     NAME                              READY   STATUS    RESTARTS      AGE
   kube-system   calico-node-vxsmt                 1/1     Running   0             16m
   kube-system   coredns-68ddd5bcc7-jcbx7          1/1     Running   0             15m
