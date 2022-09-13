@@ -42,8 +42,8 @@ Note: Single/Multiple Shell Scripts are customized to run in RHEL console(prefer
   tar -xvf jcnr-pods-all.tgz
   mv jcnr-pods-all/k8s.io.sh ~/
   mv jcnr-pods-all/mini-2.sh ~/
-  #sh mini-2.sh
-  #echo '\============  Minikube Install Complete :)  ============\'
+  sh mini-2.sh
+  echo '\============  Minikube Install Complete :)  ============\'
   sh k8s.io.sh
   echo '\============  K8s Infra Install Complete :)  ============\'
   
