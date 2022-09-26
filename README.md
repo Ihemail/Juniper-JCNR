@@ -36,7 +36,7 @@ Note: Single/Multiple Shell Scripts are customized to run in RHEL console(prefer
 5. Login to 'vm_rhel84_1' via console/serial & Create a install script 'install.sh' at Root directory:
 
   ```ruby
-  [root@rhel85 ~]# vi start.sh
+  [root@rhel85 ~]# vi install.sh
   #!/bin/bash
 
   tar -xvf jcnr-pods-all.tgz
